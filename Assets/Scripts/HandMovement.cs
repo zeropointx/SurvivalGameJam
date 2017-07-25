@@ -2,47 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HandMovement : MonoBehaviour {
+[RequireComponent(typeof(SphereCollider))]
 
-    public GameObject leftHand = null;
-    public GameObject rightHand = null;
-    public GameObject playerModel = null;
+public class HandMovement : MonoBehaviour
+{
+    public Vector3 localPos = new Vector3(0, 0, 0);
 
-    private Vector3 clickStartCoordinate;
-    private Vector3 clickEndCoordinate;
-
-
-    private bool mouseDown = false;
-
-	void Start () {
-		
-	}
-	
-	void Update () {
-        if (Input.GetMouseButtonDown(0))
-        {
-            mouseDown = true;
-            clickStartCoordinate = GetMousePosition();
-        }
-
-        else if (Input.GetMouseButtonUp(0))
-        {
-            mouseDown = false;
-        }
-
-        if (mouseDown)
-            FistMovement(clickStartCoordinate);
-       
-	}
-
-    void FistMovement(Vector3 clickStart)
+    void Awake()
     {
-
+        localPos = transform.localPosition;
     }
 
-    Vector3 GetMousePosition()
-    {
-        return Input.mousePosition;
-        
-    }
 }
