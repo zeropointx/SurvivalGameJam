@@ -723,7 +723,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightHand: {fileID: 4413173528045796}
   rightFist: {fileID: 4220392081654234}
-  speed: 100
   MouseMovementList: []
   mouseMovementTimer: 0
   mouseMovementTime: 1
@@ -731,6 +730,9 @@ MonoBehaviour:
   handReturning: 0
   moveHandToScreen: 0
   index: 0
+  speed: 0
+  speedIncrease: 5
+  SpeedDecrease: 5
 --- !u!114 &114761602053058906
 MonoBehaviour:
   m_ObjectHideFlags: 1

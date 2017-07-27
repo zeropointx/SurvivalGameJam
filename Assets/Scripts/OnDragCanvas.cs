@@ -7,7 +7,7 @@ public class OnDragCanvas : MonoBehaviour
     public Transform rightHand = null;
     public Transform rightFist = null;
     
-    public float speed = 10;
+    
     float step = 0;
 
     public List<Vector3> MouseMovementList = new List<Vector3>();
@@ -22,9 +22,21 @@ public class OnDragCanvas : MonoBehaviour
     public bool moveHandToScreen = false;
     public int index = 0;
 
+    // Speed of the attack
+    int halfwayPoint = 0;
+    int threeOfFourPoint = 0;
+
+    public float speed = 1f;
+    float startingSpeed = 0f;
+    public float speedIncrease = 0.1f;
+    public float SpeedDecrease = 0.4f;
+    float decreaseCap = 2f;
+    float returnSpeed = 10f;
+
     void Awake()
     {
-        step = speed * Time.deltaTime;
+        startingSpeed = speed;
+        //step = startingSpeed * Time.deltaTime;
         rightFistLocalPos = rightFist.localPosition;
         rightHandLocalPos = rightHand.localPosition;
     }
@@ -33,16 +45,39 @@ public class OnDragCanvas : MonoBehaviour
     {        
         if (!allowedToAttack && !handReturning)
         {
+            // Initialize
             if (moveHandToScreen)
             {
+                rightHand.gameObject.SetActive(true);
                 rightHand.localPosition = new Vector3(0.5f, -0.2f, 0f);
                 moveHandToScreen = false;
+                speed = startingSpeed;
+                halfwayPoint = MouseMovementList.Count / 2;
+                threeOfFourPoint = (MouseMovementList.Count / 4) + halfwayPoint;
             }
 
-            Vector3 NextPos = new Vector3(MouseMovementList[index].x - 1, MouseMovementList[index].y + 0.5f, 1);
-            rightFist.localPosition = NextPos;
+
+
+            // Hand Movement
+            Vector3 NextPos = new Vector3(MouseMovementList[index].x - 1, MouseMovementList[index].y, 1);
+            step = speed * Time.deltaTime;
+            rightFist.localPosition = Vector3.MoveTowards(rightFist.localPosition, NextPos, step);
+            //rightFist.localPosition = NextPos;
             rightHand.LookAt(rightFist);
-            index++;
+
+            // Speed
+            if (index <= halfwayPoint)
+                speed += speedIncrease;
+
+            else
+            {
+                if(speed > decreaseCap)
+                speed -= SpeedDecrease;
+            }
+
+
+            if (rightFist.localPosition == NextPos)
+                index++;
 
             if (index >= MouseMovementList.Count)
             {
@@ -57,17 +92,20 @@ public class OnDragCanvas : MonoBehaviour
 
     void returnrightFist()
     {
+        speed = returnSpeed;
+        step = speed * Time.deltaTime;
         rightFist.localPosition = Vector3.MoveTowards(rightFist.localPosition, rightFistLocalPos, step);
         rightHand.localPosition = Vector3.MoveTowards(rightHand.localPosition, rightHandLocalPos, step);
         rightHand.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
 
         if(rightFist.localPosition == rightFistLocalPos && rightHand.localPosition == rightHandLocalPos)
         {
+            rightHand.gameObject.SetActive(false);
             allowedToAttack = true;
             handReturning = false;
             MouseMovementList.Clear();
             mouseMovementTimer = 0f;
-            index = 1;
+            index = 0;
         }
     }
 
