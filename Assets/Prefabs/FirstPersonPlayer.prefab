@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 33727333596205836}
   - component: {fileID: 65883812456124102}
   - component: {fileID: 23727631242292196}
+  - component: {fileID: 54380599860460858}
   m_Layer: 0
   m_Name: RightHandPivot
   m_TagString: Untagged
@@ -142,7 +143,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1533220282755892}
   m_LocalRotation: {x: 0.50727, y: 0.49179804, z: -0.49965852, w: 0.501152}
-  m_LocalPosition: {x: 0.75, y: 0.8, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0, z: 1}
   m_LocalScale: {x: 0.6068978, y: 0.6010108, z: 0.6058904}
   m_Children: []
   m_Father: {fileID: 4144091772009036}
@@ -155,7 +156,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1431883611630198}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7767146, y: -2.2, z: -4.52}
+  m_LocalPosition: {x: -2.3841984, y: 10.115257, z: -13.500458}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4113115013804594}
@@ -396,6 +397,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1273319292910796}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54380599860460858
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1273319292910796}
+  serializedVersion: 2
+  m_Mass: 1000
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!65 &65425035027397032
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -428,7 +444,7 @@ BoxCollider:
   m_GameObject: {fileID: 1273319292910796}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -553,6 +569,7 @@ MonoBehaviour:
     smooth: 0
     smoothTime: 5
     lockCursor: 0
+    cursorVisible: 0
   m_UseFovKick: 0
   m_FovKick:
     Camera: {fileID: 0}
@@ -628,6 +645,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
   m_JumpSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
   m_LandSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
+  rotationLocked: 0
 --- !u!114 &114749272417383958
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -641,6 +659,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightHand: {fileID: 4081947079603812}
   rightFist: {fileID: 4113115013804594}
+  player: {fileID: 1431883611630198}
   MouseMovementList: []
   mouseMovementTimer: 0
   mouseMovementTime: 1
@@ -648,9 +667,10 @@ MonoBehaviour:
   handReturning: 0
   moveHandToScreen: 0
   index: 0
-  speed: 1
+  speed: 30
   speedIncrease: 0.3
   SpeedDecrease: 0.5
+  weaponAdjustement: {x: -0.4, y: -0.3, z: 0}
 --- !u!124 &124421887945236462
 Behaviour:
   m_ObjectHideFlags: 1
